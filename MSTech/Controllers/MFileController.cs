@@ -34,6 +34,7 @@ namespace MSTech.Controllers
                 Nombre = input_file.NombreSinExtension(),
                 Extension = input_file.Extension(),
                 NombreCompleto = input_file.NombreCompleto(),
+                //La ruta la seteo cuando el archivo se guarde fisicamente
                 Ruta = @"",
                 Mime = input_file.ContentType,
                 Size = (Int32)input_file.ContentLength,
@@ -47,6 +48,10 @@ namespace MSTech.Controllers
             try
             {
                 input_file.SaveAs(rutaArchivo);
+                if (!System.IO.File.Exists(rutaArchivo))
+                {
+                    return View("Fracaso");
+                }
             }
             catch (Exception exc)
             {
